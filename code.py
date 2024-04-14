@@ -42,7 +42,7 @@ for idx, item in enumerate(items):
     if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
 
-if st.button('+'):
+if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
 for idx in sorted(deleted_items, reverse=True):
