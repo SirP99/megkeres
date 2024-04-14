@@ -29,15 +29,18 @@ while st.button(f'Tétel hozzáadása {counter + 1}', key=f'add_button_{counter}
     
     # Elrejtjük az egységárat és használjuk a programban meghatározott értéket
     item_price = 1000  # Állítsd be az árat, amit szeretnél
-    st.write(f'Egységár: {item_price} Ft')
     
-    items.append({
-        'name': item_name,
-        'quantity': quantity,
-        'hours': hours,
-        'price': calculate_price(item_price, quantity, hours)
-    })
-    counter += 1
+    # Hozzáadás gomb
+    if st.button(f'Hozzáadás {counter + 1}', key=f'add_item_{counter}'):
+        items.append({
+            'name': item_name,
+            'quantity': quantity,
+            'hours': hours,
+            'price': calculate_price(item_price, quantity, hours)
+        })
+        counter += 1
+
+    st.write(f'Egységár: {item_price} Ft')
 
 # Ajánlat generálása
 st.markdown(f'### Ajánlat')
