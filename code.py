@@ -54,8 +54,8 @@ for idx, item in enumerate(items):
     
 
 for idx in sorted(deleted_items, reverse=True):
-        del items[idx]
-    st.session_state['items'] = items
+    del items[idx]
+st.session_state['items'] = items
 
 
 
