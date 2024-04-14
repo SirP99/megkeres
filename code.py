@@ -53,7 +53,9 @@ for idx, item in enumerate(items):
     item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
     
 
-
+for idx in sorted(deleted_items, reverse=True):
+        del items[idx]
+    st.session_state['items'] = items
 
 
 
