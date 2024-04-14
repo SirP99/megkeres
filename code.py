@@ -39,9 +39,7 @@ deleted_items = []
 if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
-for idx in sorted(deleted_items, reverse=True):
-    del items[idx]
-st.session_state['items'] = items
+
 for idx, item in enumerate(items):
     st.write(f'Tárgy {idx + 1}')
     item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
@@ -49,7 +47,9 @@ for idx, item in enumerate(items):
     if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
 
-
+for idx in sorted(deleted_items, reverse=True):
+    del items[idx]
+st.session_state['items'] = items
 
 
 
