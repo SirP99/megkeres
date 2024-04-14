@@ -62,4 +62,5 @@ Mennyiség: {item['quantity']} db
 """
 
 # Ajánlat sablon megjelenítése
-st.markdown(f'### Ajánla
+st.markdown(f'### Ajánlat Sablon')
+st.code(template)
