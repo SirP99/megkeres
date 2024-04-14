@@ -15,23 +15,25 @@ def calculate_price(item_price, quantity=None, hours=None):
 st.title('Árajánlat Készítő App')
 
 # Adatbeviteli mezők
-name = st.text_input('Név', '')
-address = st.text_input('Cím', '')
-interest = st.text_input('Érdeklődés tárgya', '')
+name = st.text_input('Név', key='name_input')
+address = st.text_input('Cím', key='address_input')
+interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
 # Rendelés tételek
 items = []
-while st.button('Tétel hozzáadása'):
-    item_name = st.text_input('Tétel neve', key=f'item_name_{len(items)}')
-    quantity = st.number_input('Mennyiség', min_value=1, value=1, key=f'quantity_{len(items)}')
-    hours = st.number_input('Óraszám', min_value=1, value=1, key=f'hours_{len(items)}')
-    item_price = st.number_input('Egységár', min_value=1, value=1000, key=f'price_{len(items)}')
+counter = 0
+while st.button(f'Tétel hozzáadása {counter + 1}', key=f'add_button_{counter}'):
+    item_name = st.text_input('Tétel neve', key=f'item_name_{counter}')
+    quantity = st.number_input('Mennyiség', min_value=1, value=1, key=f'quantity_{counter}')
+    hours = st.number_input('Óraszám', min_value=1, value=1, key=f'hours_{counter}')
+    item_price = st.number_input('Egységár', min_value=1, value=1000, key=f'price_{counter}')
     items.append({
         'name': item_name,
         'quantity': quantity,
         'hours': hours,
         'price': calculate_price(item_price, quantity, hours)
     })
+    counter += 1
 
 # Ajánlat generálása
 st.markdown(f'### Ajánlat')
@@ -51,14 +53,13 @@ Cím: {address}
 Érdeklődés tárgya: {interest}
 """
 
-for item in items:
+for idx, item in enumerate(items):
     template += f"""
-Ajánlati tétel: {item['name']}
+Ajánlati tétel {idx + 1}: {item['name']}
 Mennyiség: {item['quantity']} db
 Óraszám: {item['hours']} óra
 Összár: {item['price']} Ft
 """
 
 # Ajánlat sablon megjelenítése
-st.markdown(f'### Ajánlat Sablon')
-st.code(template)
+st.markdown(f'### Ajánla
