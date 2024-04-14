@@ -1,4 +1,5 @@
 import streamlit as st
+import pdfkit
 
 def calculate_price(item_price, quantity, hours):
     total_price = item_price * quantity * hours
@@ -47,3 +48,8 @@ Mennyiség: {quantity}
 
 st.markdown(f'### Ajánlat Sablon')
 st.code(template)
+
+if st.button('PDF Letöltése'):
+    generate_pdf(template, 'ajanlat.pdf')
+    st.success('PDF sikeresen létrehozva! Kattints a linkre a letöltéshez.')
+    st.markdown('[ajanlat.pdf letöltése](./ajanlat.pdf)', unsafe_allow_html=True)
