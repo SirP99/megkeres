@@ -2,9 +2,9 @@ import streamlit as st
 
 # Tétel adatok
 items_data = {
-    'mosogatás': {'price': 1000},
-    'asztal': {'price': 1500},
-    'szemétszedés': {'price': 2000}
+    'Mosogatás': {'price': 1000},
+    'Asztal': {'price': 1500},
+    'Szemétszedés': {'price': 2000}
 }
 
 def calculate_price(item_name, quantity=None, hours=None):
@@ -32,8 +32,8 @@ name = st.text_input('Név', key='name_input')
 address = st.text_input('Cím', key='address_input')
 interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
-# Tárgy választó legördülő menü
-items = st.session_state.get('items', [{'name': 'Tárgy 1', 'quantity_or_hours': 1}])
+# Tétel választó legördülő menü
+items = st.session_state.get('items', [{'name': 'Mosogatás', 'quantity_or_hours': 1}])
 deleted_items = []
 for idx, item in enumerate(items):
     st.write(f'Tárgy {idx + 1}')
@@ -46,7 +46,7 @@ for idx in sorted(deleted_items, reverse=True):
     del items[idx]
 
 if st.button('+'):
-    items.append({'name': 'Tárgy 1', 'quantity_or_hours': 1})
+    items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
 st.session_state['items'] = items
 
