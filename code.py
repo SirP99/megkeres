@@ -22,10 +22,10 @@ interest = st.text_input('Érdeklődés tárgya', '')
 # Rendelés tételek
 items = []
 while st.button('Tétel hozzáadása'):
-    item_name = st.text_input('Tétel neve', '')
-    quantity = st.number_input('Mennyiség', min_value=1, value=1, key=item_name+'_quantity')
-    hours = st.number_input('Óraszám', min_value=1, value=1, key=item_name+'_hours')
-    item_price = st.number_input('Egységár', min_value=1, value=1000, key=item_name+'_price')
+    item_name = st.text_input('Tétel neve', key=f'item_name_{len(items)}')
+    quantity = st.number_input('Mennyiség', min_value=1, value=1, key=f'quantity_{len(items)}')
+    hours = st.number_input('Óraszám', min_value=1, value=1, key=f'hours_{len(items)}')
+    item_price = st.number_input('Egységár', min_value=1, value=1000, key=f'price_{len(items)}')
     items.append({
         'name': item_name,
         'quantity': quantity,
