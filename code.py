@@ -1,5 +1,12 @@
 import streamlit as st
 
+# Tétel adatok
+items_data = {
+    'Tétel 1': {'price': 1000},
+    'Tétel 2': {'price': 1500},
+    'Tétel 3': {'price': 2000}
+}
+
 def calculate_price(item_price, quantity=None, hours=None):
     if quantity is not None and hours is not None:
         total_price = item_price * quantity * hours
@@ -19,56 +26,22 @@ name = st.text_input('Név', key='name_input')
 address = st.text_input('Cím', key='address_input')
 interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
-# Rendelés tételek
-items = []
-counter = 0
+# Tétel választó legördülő menü
+selected_item = st.selectbox('Válassz egy tételt', list(items_data.keys()))
 
-# Tétel hozzáadása
-if st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{counter}'):
-    item_name = st.text_input(f'Tétel neve {counter + 1}', key=f'item_name_{counter}')
-    quantity_or_hours = st.number_input(f'Mennyiség vagy óraszám {counter + 1}', min_value=1, value=1, key=f'quantity_or_hours_{counter}')
-    unit_type = st.selectbox(f'Mérték {counter + 1}', ['Darab', 'Óra'], key=f'unit_type_{counter}')
-    
-    # Elrejtjük az egységárat és használjuk a programban meghatározott értéket
-    item_price = 1000  # Állítsd be az árat, amit szeretnél
-    
-    items.append({
-        'name': item_name,
-        'quantity_or_hours': quantity_or_hours,
-        'unit_type': unit_type,
-        'price': calculate_price(item_price, quantity_or_hours) if unit_type == 'Darab' else calculate_price(item_price, hours=quantity_or_hours)
-    })
-    counter += 1
+# Mennyiség/Óraszám mező
+quantity_or_hours = st.number_input('Mennyiség vagy óraszám', min_value=1, value=1)
 
-# Tételek listája és módosítása
-st.markdown('### Tételek')
-for idx, item in enumerate(items):
-    item_name = st.text_input(f'Módosított név {idx + 1}', value=item['name'], key=f'modified_item_name_{idx}')
-    quantity_or_hours = st.number_input(f'Módosított mennyiség vagy óraszám {idx + 1}', min_value=1, value=item['quantity_or_hours'], key=f'modified_quantity_or_hours_{idx}')
-    unit_type = st.selectbox(f'Módosított mérték {idx + 1}', ['Darab', 'Óra'], index=0 if item['unit_type'] == 'Darab' else 1, key=f'modified_unit_type_{idx}')
-    
-    price = calculate_price(item_price, quantity_or_hours) if unit_type == 'Darab' else calculate_price(item_price, hours=quantity_or_hours)
-    
-    item['name'] = item_name
-    item['quantity_or_hours'] = quantity_or_hours
-    item['unit_type'] = unit_type
-    item['price'] = price
-    
-    template = f"""
-    **{item_name}**
-    Mennyiség/Óraszám: {quantity_or_hours} {unit_type}
-    Ár: {price} Ft
-    """
-    st.write(template)
+# Ár kiszámítása a kiválasztott tételhez
+item_price = items_data[selected_item]['price']
+price = calculate_price(item_price, quantity_or_hours)
 
 # Ajánlat generálása
 st.markdown(f'### Ajánlat')
 st.write(f'Név: {name}')
 st.write(f'Cím: {address}')
 st.write(f'Érdeklődés tárgya: {interest}')
-
-total_price = sum(item['price'] for item in items)
-st.write(f'Összár: {total_price} Ft')
+st.write(f'Összár: {price} Ft')
 
 # Szablon generálása
 template = f"""
@@ -77,13 +50,9 @@ template = f"""
 Név: {name}
 Cím: {address}
 Érdeklődés tárgya: {interest}
-"""
-
-for idx, item in enumerate(items):
-    template += f"""
-Ajánlati tétel {idx + 1}: {item['name']}
-Mennyiség/Óraszám: {item['quantity_or_hours']} {item['unit_type']}
-Összár: {item['price']} Ft
+Ajánlati tétel: {selected_item}
+Mennyiség/Óraszám: {quantity_or_hours} {items_data[selected_item]['unit']}
+Összár: {price} Ft
 """
 
 # Ajánlat sablon megjelenítése
