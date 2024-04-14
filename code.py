@@ -7,7 +7,12 @@ items_data = {
     'Tárgy 3': {'price': 2000}
 }
 
-def calculate_price(item_price, quantity=None, hours=None):
+def calculate_price(item_name, quantity=None, hours=None):
+    if item_name not in items_data:
+        raise ValueError(f'Invalid item name: {item_name}')
+
+    item_price = items_data[item_name]['price']
+
     if quantity is not None and hours is not None:
         total_price = item_price * quantity * hours
     elif quantity is not None:
@@ -16,6 +21,7 @@ def calculate_price(item_price, quantity=None, hours=None):
         total_price = item_price * hours
     else:
         total_price = item_price
+
     return total_price
 
 # Streamlit alkalmazás felépítése
@@ -45,7 +51,7 @@ if st.button('+'):
 st.session_state['items'] = items
 
 # Ajánlat generálása
-total_price = sum(calculate_price(items_data[item['name']]['price'], item['quantity_or_hours']) for item in items)
+total_price = sum(calculate_price(item['name'], item['quantity_or_hours']) for item in items)
 
 st.markdown(f'### Ajánlat')
 st.write(f'Név: {name}')
@@ -64,7 +70,7 @@ Cím: {address}
 """
 
 for idx, item in enumerate(items):
-    price = calculate_price(items_data[item['name']]['price'], item['quantity_or_hours'])
+    price = calculate_price(item['name'], item['quantity_or_hours'])
     template += f"""
 Ajánlati tétel {idx + 1}: {item['name']}
 Mennyiség/Óraszám: {item['quantity_or_hours']}
