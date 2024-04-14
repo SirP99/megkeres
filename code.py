@@ -2,9 +2,9 @@ import streamlit as st
 
 # Tétel adatok
 items_data = {
-    'Tétel 1': {'price': 1000},
-    'Tétel 2': {'price': 1500},
-    'Tétel 3': {'price': 2000}
+    'Tárgy 1': {'price': 1000},
+    'Tárgy 2': {'price': 1500},
+    'Tárgy 3': {'price': 2000}
 }
 
 def calculate_price(item_price, quantity=None, hours=None):
@@ -27,11 +27,11 @@ address = st.text_input('Cím', key='address_input')
 interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
 # Tétel választó legördülő menü
-items = st.session_state.get('items', [{'name': 'Tétel 1', 'quantity_or_hours': 1}])
+items = st.session_state.get('items', [{'name': 'Tárgy 1', 'quantity_or_hours': 1}])
 deleted_items = []
 for idx, item in enumerate(items):
-    st.write(f'Tétel {idx + 1}')
-    item['name'] = st.selectbox(f'Válassz egy tételt', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
+    st.write(f'Tárgy {idx + 1}')
+    item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
     item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
     if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
@@ -40,7 +40,7 @@ for idx in sorted(deleted_items, reverse=True):
     del items[idx]
 
 if st.button('+'):
-    items.append({'name': 'Tétel 1', 'quantity_or_hours': 1})
+    items.append({'name': 'Tárgy 1', 'quantity_or_hours': 1})
 
 st.session_state['items'] = items
 
