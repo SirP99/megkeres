@@ -26,7 +26,11 @@ while st.button(f'Tétel hozzáadása {counter + 1}', key=f'add_button_{counter}
     item_name = st.text_input('Tétel neve', key=f'item_name_{counter}')
     quantity = st.number_input('Mennyiség', min_value=1, value=1, key=f'quantity_{counter}')
     hours = st.number_input('Óraszám', min_value=1, value=1, key=f'hours_{counter}')
-    item_price = st.number_input('Egységár', min_value=1, value=1000, key=f'price_{counter}')
+    
+    # Elrejtjük az egységárat és használjuk a programban meghatározott értéket
+    item_price = 1000  # Állítsd be az árat, amit szeretnél
+    st.write(f'Egységár: {item_price} Ft')
+    
     items.append({
         'name': item_name,
         'quantity': quantity,
