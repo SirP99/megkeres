@@ -27,13 +27,13 @@ address = st.text_input('Cím', key='address_input')
 interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
 # Tétel választó legördülő menü
-items = st.session_state.get('items', [{'name': '', 'quantity_or_hours': 1}])
+items = st.session_state.get('items', [{'name': 'Tétel 1', 'quantity_or_hours': 1}])
 for idx, item in enumerate(items):
     item['name'] = st.selectbox(f'Tétel {idx + 1}', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']))
     item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám {idx + 1}', min_value=1, value=item['quantity_or_hours'])
 
 if st.button('+'):
-    items.append({'name': '', 'quantity_or_hours': 1})
+    items.append({'name': 'Tétel 1', 'quantity_or_hours': 1})
 
 st.session_state['items'] = items
 
