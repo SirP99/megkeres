@@ -40,6 +40,22 @@ if st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{counter
     })
     counter += 1
 
+# Tételek módosítása
+modified_items = []
+for idx, item in enumerate(items):
+    item_name = st.text_input(f'Módosított név {idx + 1}', value=item['name'], key=f'modified_item_name_{idx}')
+    quantity_or_hours = st.number_input(f'Módosított mennyiség vagy óraszám {idx + 1}', min_value=1, value=item['quantity_or_hours'], key=f'modified_quantity_or_hours_{idx}')
+    unit_type = st.selectbox(f'Módosított mérték {idx + 1}', ['Darab', 'Óra'], index=0 if item['unit_type'] == 'Darab' else 1, key=f'modified_unit_type_{idx}')
+    
+    modified_items.append({
+        'name': item_name,
+        'quantity_or_hours': quantity_or_hours,
+        'unit_type': unit_type,
+        'price': calculate_price(item_price, quantity_or_hours) if unit_type == 'Darab' else calculate_price(item_price, hours=quantity_or_hours)
+    })
+
+items = modified_items
+
 # Tétel törlése
 if st.button('Tétel törlése') and items:
     del items[-1]
