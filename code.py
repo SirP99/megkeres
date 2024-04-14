@@ -22,7 +22,9 @@ interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 # Rendelés tételek
 items = []
 counter = 0
-while st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{counter}'):
+
+# Tétel hozzáadása
+if st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{counter}'):
     item_name = st.text_input('Tétel neve', key=f'item_name_{counter}')
     quantity_or_hours = st.number_input('Mennyiség vagy óraszám', min_value=1, value=1, key=f'quantity_or_hours_{counter}')
     unit_type = st.selectbox('Mérték', ['Darab', 'Óra'], key=f'unit_type_{counter}')
@@ -30,17 +32,16 @@ while st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{coun
     # Elrejtjük az egységárat és használjuk a programban meghatározott értéket
     item_price = 1000  # Állítsd be az árat, amit szeretnél
     
-    if st.button(f'Hozzáadás {counter + 1}', key=f'add_item_{counter}'):
-        items.append({
-            'name': item_name,
-            'quantity_or_hours': quantity_or_hours,
-            'unit_type': unit_type,
-            'price': calculate_price(item_price, quantity_or_hours) if unit_type == 'Darab' else calculate_price(item_price, hours=quantity_or_hours)
-        })
-        counter += 1
+    items.append({
+        'name': item_name,
+        'quantity_or_hours': quantity_or_hours,
+        'unit_type': unit_type,
+        'price': calculate_price(item_price, quantity_or_hours) if unit_type == 'Darab' else calculate_price(item_price, hours=quantity_or_hours)
+    })
+    counter += 1
 
 # Tétel törlése
-if st.button('Tétel törlése'):
+if st.button('Tétel törlése') and items:
     del items[-1]
 
 # Tételek listája
