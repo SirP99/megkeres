@@ -41,7 +41,7 @@ if st.button('Hozzáadás'):
 
 for idx in sorted(deleted_items, reverse=True):
     del items[idx]
-    
+st.session_state['items'] = items
 for idx, item in enumerate(items):
     st.write(f'Tárgy {idx + 1}')
     item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
@@ -51,7 +51,7 @@ for idx, item in enumerate(items):
 
 
 
-st.session_state['items'] = items
+
 
 # Ajánlat generálása
 total_price = sum(calculate_price(item['name'], item['quantity_or_hours']) for item in items)
