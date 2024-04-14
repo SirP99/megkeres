@@ -48,9 +48,9 @@ for idx, item in enumerate(items):
     st.write(f'Tárgy {idx + 1}')
     item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
     item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
-    
-for idx in sorted(deleted_items, reverse=True):
-    del items[idx]
+    for idx in sorted(deleted_items, reverse=True):
+        del items[idx]
+
 st.session_state['items'] = items
 
 
