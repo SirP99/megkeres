@@ -51,7 +51,7 @@ Név: {name}
 Cím: {address}
 Érdeklődés tárgya: {interest}
 Ajánlati tétel: {selected_item}
-Mennyiség/Óraszám: {quantity_or_hours} {items_data[selected_item]['unit']}
+Mennyiség/Óraszám: {quantity_or_hours}
 Összár: {price} Ft
 """
 
