@@ -31,9 +31,9 @@ items = st.session_state.get('items', [{'name': 'Tétel 1', 'quantity_or_hours':
 deleted_items = []
 for idx, item in enumerate(items):
     st.write(f'Tétel {idx + 1}')
-    item['name'] = st.selectbox(f'Válassz egy tételt', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']))
-    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'])
-    if st.button(f'Törlés {idx + 1}'):
+    item['name'] = st.selectbox(f'Válassz egy tételt', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
+    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
+    if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
 
 for idx in sorted(deleted_items, reverse=True):
