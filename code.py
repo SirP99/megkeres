@@ -28,9 +28,16 @@ interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
 # Tétel választó legördülő menü
 items = st.session_state.get('items', [{'name': 'Tétel 1', 'quantity_or_hours': 1}])
+deleted_items = []
 for idx, item in enumerate(items):
-    item['name'] = st.selectbox(f'Tétel {idx + 1}', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']))
-    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám {idx + 1}', min_value=1, value=item['quantity_or_hours'])
+    st.write(f'Tétel {idx + 1}')
+    item['name'] = st.selectbox(f'Válassz egy tételt', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']))
+    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'])
+    if st.button(f'Törlés {idx + 1}'):
+        deleted_items.append(idx)
+
+for idx in sorted(deleted_items, reverse=True):
+    del items[idx]
 
 if st.button('+'):
     items.append({'name': 'Tétel 1', 'quantity_or_hours': 1})
@@ -44,6 +51,7 @@ st.markdown(f'### Ajánlat')
 st.write(f'Név: {name}')
 st.write(f'Cím: {address}')
 st.write(f'Érdeklődés tárgya: {interest}')
+
 st.write(f'Összár: {total_price} Ft')
 
 # Szablon generálása
@@ -61,6 +69,10 @@ for idx, item in enumerate(items):
 Ajánlati tétel {idx + 1}: {item['name']}
 Mennyiség/Óraszám: {item['quantity_or_hours']}
 Összár: {price} Ft
+"""
+
+template += f"""
+Végösszeg: {total_price} Ft
 """
 
 # Ajánlat sablon megjelenítése
