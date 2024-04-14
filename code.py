@@ -46,6 +46,7 @@ for idx, item in enumerate(items):
     if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
     
+st.write(items)
 
 for idx in sorted(deleted_items, reverse=True):
     del items[idx]
