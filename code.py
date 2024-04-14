@@ -25,9 +25,9 @@ counter = 0
 
 # Tétel hozzáadása
 if st.button(f'Új tétel hozzáadása {counter + 1}', key=f'add_button_{counter}'):
-    item_name = st.text_input('Tétel neve', key=f'item_name_{counter}')
-    quantity_or_hours = st.number_input('Mennyiség vagy óraszám', min_value=1, value=1, key=f'quantity_or_hours_{counter}')
-    unit_type = st.selectbox('Mérték', ['Darab', 'Óra'], key=f'unit_type_{counter}')
+    item_name = st.text_input(f'Tétel neve {counter + 1}', key=f'item_name_{counter}')
+    quantity_or_hours = st.number_input(f'Mennyiség vagy óraszám {counter + 1}', min_value=1, value=1, key=f'quantity_or_hours_{counter}')
+    unit_type = st.selectbox(f'Mérték {counter + 1}', ['Darab', 'Óra'], key=f'unit_type_{counter}')
     
     # Elrejtjük az egységárat és használjuk a programban meghatározott értéket
     item_price = 1000  # Állítsd be az árat, amit szeretnél
