@@ -39,26 +39,18 @@ deleted_items = []
 if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
-
-
-
 for idx, item in enumerate(items):
+    st.write(f'Tárgy {idx + 1}')
+    st.empty()  # Rejtett "checkpoint" widget
+    item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
+    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
     if st.button(f'Törlés {idx + 1}', key=f'delete_button_{idx}'):
         deleted_items.append(idx)
-    
-st.write(items)
 
 for idx in sorted(deleted_items, reverse=True):
     del items[idx]
 
-
-for idx, item in enumerate(items):
-    st.session_state['items'] = items
-    st.write(f'Tárgy {idx + 1}')
-    item['name'] = st.selectbox(f'Válassz egy tárgyat', list(items_data.keys()), index=0 if item['name'] == '' else list(items_data.keys()).index(item['name']), key=f'item_name_{idx}')
-    item['quantity_or_hours'] = st.number_input(f'Mennyiség vagy óraszám', min_value=1, value=item['quantity_or_hours'], key=f'quantity_or_hours_{idx}')
-
-
+st.session_state['items'] = items
 
 # Ajánlat generálása
 total_price = sum(calculate_price(item['name'], item['quantity_or_hours']) for item in items)
