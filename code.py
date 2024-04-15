@@ -43,7 +43,7 @@ items = [item for idx, item in enumerate(items) if not deleted_indices[idx]]
 
 if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
-    st.experimental_rerun()
+   
 
 # Tárgyak frissítése gomb
 if st.button('Tárgyak frissítése'):
