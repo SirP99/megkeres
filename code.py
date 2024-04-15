@@ -7,18 +7,13 @@ items_data = {
     'Szemétszedés': {'price': 2000}
 }
 
-def calculate_price(item_name, quantity=None, hours=None):
+def calculate_price(item_name, quantity=None):
     if item_name not in items_data:
         raise ValueError(f'Invalid item name: {item_name}')
 
     item_price = items_data[item_name]['price']
-
-    if quantity is not None and hours is not None:
-        total_price = item_price * quantity * hours
-    elif quantity is not None:
+    if quantity is not None:
         total_price = item_price * quantity
-    elif hours is not None:
-        total_price = item_price * hours
     else:
         total_price = item_price
 
