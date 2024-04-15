@@ -45,7 +45,7 @@ if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
 st.session_state['items'] = items
-st.session_state.sync()  # Az alkalmazás frissítése
+st.experimental_rerun()  # Az alkalmazás újraindítása
 
 # Ajánlat generálása
 total_price = sum(calculate_price(item['name'], item['quantity_or_hours']) for item in items)
