@@ -91,3 +91,5 @@ Végösszeg: {total_price} Ft
 # Ajánlat sablon megjelenítése
 st.markdown(f'### Ajánlat Sablon')
 st.code(template)
+
+st.session_state['update_items'] = True
