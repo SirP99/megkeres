@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 # Tétel adatok
 items_data = {
@@ -42,12 +43,11 @@ items = [item for idx, item in enumerate(items) if not deleted_indices[idx]]
 
 if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
-    st.experimental_rerun()
-   
 
-# Tárgyak frissítése gomb
-if st.button('Tárgyak frissítése'):
-    st.experimental_rerun()  # Az alkalmazás újraindítása
+# Időzített újraindítás
+if st.session_state.get('rerun', False):
+    st.experimental_rerun()
+    st.session_state['rerun'] = False
 
 st.session_state['items'] = items
 
@@ -85,3 +85,8 @@ Végösszeg: {total_price} Ft
 # Ajánlat sablon megjelenítése
 st.markdown(f'### Ajánlat Sablon')
 st.code(template)
+
+# Időzített újraindítás beállítása
+if not st.session_state.get('rerun', False):
+    st.session_state['rerun'] = True
+    time.sleep(2)  # 2 másodperc várakozás
