@@ -29,7 +29,7 @@ interest = st.text_input('Érdeklődés tárgya', key='interest_input')
 
 # Tétel választó legördülő menü
 items = st.session_state.get('items', [{'name': 'Mosogatás', 'quantity_or_hours': 1}])
-
+st.session_state['items'] = items
 deleted_indices = [False] * len(items)
 
 for idx, item in enumerate(items):
