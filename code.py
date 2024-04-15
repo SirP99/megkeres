@@ -45,8 +45,7 @@ if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
 # Tárgyak frissítése gomb
-st.button('Tárgyak frissítése', key=f'frissites')= False
-if frissites:
+if st.button('Tárgyak frissítése'):
     st.experimental_rerun()  # Az alkalmazás újraindítása
 
 st.session_state['items'] = items
