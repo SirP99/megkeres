@@ -44,7 +44,11 @@ items = [item for idx, item in enumerate(items) if not deleted_indices[idx]]
 if st.button('Hozzáadás'):
     items.append({'name': 'Mosogatás', 'quantity_or_hours': 1})
 
-st.session_state['items'] = items  # Az adatok automatikusan frissülnek itt
+# Tárgyak frissítése gomb
+if st.button('Tárgyak frissítése'):
+    st.experimental_rerun()  # Az alkalmazás újraindítása
+
+st.session_state['items'] = items
 
 # Ajánlat generálása
 total_price = sum(calculate_price(item['name'], item['quantity_or_hours']) for item in items)
