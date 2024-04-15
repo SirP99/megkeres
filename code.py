@@ -93,3 +93,4 @@ st.markdown(f'### Ajánlat Sablon')
 st.code(template)
 
 st.session_state['update_items'] = True
+st.session_state['update_items'] = False
