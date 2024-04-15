@@ -47,7 +47,7 @@ if st.button('Hozzáadás'):
 # Időzített újraindítás
 if st.session_state.get('rerun', False):
     st.experimental_rerun()
-    st.session_state['rerun'] = False
+    st.session_state['rerun'] = !(st.session_state['rerun']) 
 
 st.session_state['items'] = items
 
